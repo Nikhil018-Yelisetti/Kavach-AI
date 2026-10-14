@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavach AIAI| Digital Risk Protection</title>
+
+<style>
+:root {
+  --bg:#08111f;
+  --panel:#111e31;
+  --line:#263951;
+  --text:#edf5ff;
+  --muted:#91a6c0;
+  --teal:#51e2c2;
+  --blue:#78b8ff;
+  --amber:#ffd078;
+  --red:#ff858f;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Segoe UI,Arial,sans-serif;
+}
+button,input,textarea { font:inherit; }
+button { cursor:pointer; }
+.layout { display:flex; min-height:100vh; }
+aside {
+  width:230px;
+  flex-shrink:0;
+  padding:22px 14px;
+  background:#091526;
+  border-right:1px solid var(--line);
+}
+.logo { font-size:22px; font-weight:800; margin-bottom:8px; }
+.logo span { color:var(--teal); }
+.tag {
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:1px;
+  margin-bottom:25px;
+}
+.nav {
+  width:100%;
+  padding:12px;
+  margin:3px 0;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--muted);
+  text-align:left;
+}
+.nav.active,.nav:hover {
+  background:#1a3048;
+  color:var(--teal);
+}
+.sidebar-note {
+  margin-top:25px;
+  padding:12px;
+  border:1px solid #5a4a2c;
+  border-radius:8px;
+  background:#29251d;
+  color:#e8c989;
+  font-size:11px;
+  line-height:1.6;
+}
+main {
+  flex:1;
+  min-width:0;
+  padding:25px;
+  max-width:1600px;
+  margin:auto;
+  width:100%;
+}
+header,.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+header { margin-bottom:22px; }
+h1 { font-size:27px; margin:0 0 6px; }
+h2 { font-size:18px; margin:0 0 14px; }
+h3 { font-size:15px; }
+p { line-height:1.6; }
+.muted,.tiny { color:var(--muted); font-size:13px; }
+.tiny { font-size:11px; }
+.pill,.badge {
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#18352f;
+  color:var(--teal);
+  border:1px solid #2b5a50;
+  font-size:11px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.two {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.card,.panel {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:17px;
+  margin-bottom:15px;
+  min-width:0;
+}
+.metric { font-size:30px; font-weight:800; margin-top:10px; }
+.label,.metric-foot { color:var(--muted); font-size:12px; }
+.metric-foot { margin-top:6px; }
+.section { display:none; }
+.section.active { display:block; }
+button.primary {
+  background:var(--teal);
+  color:#071a1b;
+  border:0;
+  padding:11px 15px;
+  border-radius:8px;
+  font-weight:700;
+}
+button.secondary {
+  background:#1b2a40;
+  color:var(--text);
+  border:1px solid #354761;
+  padding:10px 13px;
+  border-radius:8px;
+}
+button:disabled { opacity:.5; }
+input,textarea {
+  width:100%;
+  padding:11px;
+  margin-top:6px;
+  background:#0b1425;
+  border:1px solid #30415c;
+  border-radius:7px;
+  color:var(--text);
+}
+textarea { min-height:90px; resize:vertical; }
+label {
+  display:block;
+  margin-top:13px;
+  font-size:13px;
+}
+.formgrid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.full { grid-column:1/-1; }
+.sourcegrid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.source {
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:12px;
+  background:#0b1727;
+  min-width:0;
+}
+.source strong {
+  display:block;
+  font-size:13px;
+  margin-bottom:8px;
+}
+.status {
+  display:inline-block;
+  padding:5px 8px;
+  border-radius:20px;
+  font-size:10px;
+  color:var(--amber);
+  background:#302819;
+}
+.status.connected {
+  color:#81efd4;
+  background:#163b36;
+}
+.status.error {
+  color:#ffaaaa;
+  background:#44252d;
+}
+.platform-label {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:8px;
+}
+.notice {
+  padding:12px;
+  border:1px solid #66502a;
+  background:#282319;
+  color:#f4d49c;
+  border-radius:8px;
+  font-size:12px;
+  line-height:1.6;
+  margin:12px 0;
+}
+.tablewrap { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; font-size:12px; }
+th,td {
+  text-align:left;
+  padding:10px 8px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+th { color:var(--muted); }
+td select {
+  background:#0b1425;
+  color:var(--text);
+  padding:7px;
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+.badge.high { background:#44252d; color:#ffaaaa; }
+.badge.medium { background:#44351e; color:#ffd58d; }
+.badge.low { background:#163b36; color:#81efd4; }
+.case-card {
+  border:1px solid var(--line);
+  border-radius:9px;
+  padding:13px;
+  margin-top:10px;
+  background:#0b1728;
+}
+.empty { padding:18px; text-align:center; color:var(--muted); }
+.bar-row {
+  display:grid;
+  grid-template-columns:95px 1fr 25px;
+  gap:10px;
+  align-items:center;
+  font-size:12px;
+  margin:15px 0;
+}
+.bar-track {
+  height:10px;
+  background:#26374c;
+  border-radius:20px;
+  overflow:hidden;
+}
+.bar-fill {
+  height:100%;
+  width:0;
+  background:var(--teal);
+}
+footer { padding:20px 0; color:var(--muted); font-size:11px; }
+
+@media(max-width:1100px) {
+  .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .sourcegrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:700px) {
+  .layout { display:block; }
+  aside { width:100%; }
+  .nav { width:auto; }
+  main { padding:14px; }
+  .two,.formgrid { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  .sourcegrid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+<aside>
+  <div class="logo">🛡 Kavach AIAI<span>AI</span></div>
+  <div class="tag">DIGITAL RISK PROTECTION</div>
+
+  <button class="nav active" data-page="overview">▦ Overview</button>
+  <button class="nav" data-page="brand">◈ Brand Profile</button>
+  <button class="nav" data-page="discovery">⌁ Auto Discovery</button>
+  <button class="nav" data-page="social">◎ Social Monitor</button>
+  <button class="nav" data-page="apps">▣ App Monitor</button>
+  <button class="nav" data-page="cases">☷ Investigations</button>
+  <button class="nav" data-page="settings">⚙ API Settings</button>
+
+  <div class="sidebar-note">
+    <strong>DEMO / SOURCE STATUS</strong><br>
+    Live monitoring requires authorized APIs. Demo results are illustrative and are not confirmed threats.
+  </div>
+</aside>
+
+<main>
+<header>
+  <div>
+    <h1 id="pageTitle">Threat Overview</h1>
+    <div class="muted">Digital intelligence workspace · Brand protection</div>
+  </div>
+  <span class="pill">● Kavach AIAIPrototype</span>
+</header>
+
+<section class="section active" id="overview">
+  <div class="grid">
+    <div class="card">
+      <div class="label">Registered brands</div>
+      <div class="metric" id="brandCount">0</div>
+      <div class="metric-foot">Saved brand profiles</div>
+    </div>
+    <div class="card">
+      <div class="label">Candidates assessed</div>
+      <div class="metric" id="candidateCount">0</div>
+      <div class="metric-foot">Sample and backend results</div>
+    </div>
+    <div class="card">
+      <div class="label">Needs review</div>
+      <div class="metric" id="reviewCount">0</div>
+      <div class="metric-foot">Open cases</div>
+    </div>
+    <div class="card">
+      <div class="label">Resolved cases</div>
+      <div class="metric" id="resolvedCount">0</div>
+      <div class="metric-foot">Resolved investigations</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <h2>Findings by source</h2>
+      <div class="bar-row">
+        <span>Social</span>
+        <div class="bar-track"><div class="bar-fill" id="socialBar"></div></div>
+        <b id="socialTotal">0</b>
+      </div>
+      <div class="bar-row">
+        <span>Apps</span>
+        <div class="bar-track"><div class="bar-fill" id="appBar"></div></div>
+        <b id="appTotal">0</b>
+      </div>
+      <div class="bar-row">
+        <span>High priority</span>
+        <div class="bar-track"><div class="bar-fill" id="highBar"></div></div>
+        <b id="highTotal">0</b>
+      </div>
+      <p class="tiny">Bars update after a scan.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Quick Scan</h2>
+      <p class="muted">Register a brand, then run a sample or backend scan.</p>
+      <button class="primary" onclick="runSampleScan()">Run Sample Scan</button>
+      <button class="secondary" onclick="runBackendScan()">Run Backend Scan</button>
+      <p id="scanMessage" class="muted">Ready for scanning.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Source Connectivity</h2>
+    <p class="muted">API Verified means the backend reports a configured connector. Demo Mode is not a live integration.</p>
+    <button class="secondary" onclick="refreshConnections()">Refresh Connection Status</button>
+    <div class="sourcegrid" id="sourceGrid"></div>
+  </div>
+
+  <div class="panel">
+    <h2>How Kavach AIAIWorks</h2>
+    <p>1. Register brand → 2. Discover candidates → 3. Compare identifiers → 4. Prioritize risk signals → 5. Human investigation.</p>
+    <p class="tiny">Similarity scores support review; they do not prove fraud.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Recent Findings</h2>
+    <div id="recentCases" class="empty">No cases yet. Register a brand and run a scan.</div>
+  </div>
+</section>
+
+<section class="section" id="brand">
+  <div class="panel">
+    <h2>Brand Profile</h2>
+    <p class="muted">Enter the official brand details you want to monitor.</p>
+
+    <form id="brandForm">
+      <div class="formgrid">
+        <div>
+          <label for="brandName">Brand Name *</label>
+          <input id="brandName" required placeholder="Example: NovaPay">
+        </div>
+        <div>
+          <label for="brandWebsite">Official Website</label>
+          <input id="brandWebsite" type="url" placeholder="https://example.com">
+        </div>
+        <div class="full">
+          <label for="socialAssets">Official Social URLs / Handles</label>
+          <textarea id="socialAssets" placeholder="One URL or handle per line"></textarea>
+        </div>
+        <div>
+          <label for="appAssets">Official App Names / IDs</label>
+          <textarea id="appAssets" placeholder="One app per line"></textarea>
+        </div>
+        <div>
+          <label for="publishers">Official App Publishers</label>
+          <textarea id="publishers" placeholder="Publisher or developer names"></textarea>
+        </div>
+      </div>
+      <br>
+      <button class="primary" type="submit">Save Brand Profile</button>
+      <p id="brandMessage" class="muted"></p>
+    </form>
+  </div>
+  <div class="panel">
+    <h2>Registered Brands</h2>
+    <div id="brandList" class="empty">No brand registered yet.</div>
+  </div>
+</section>
+
+<section class="section" id="discovery">
+  <div class="panel">
+    <h2>Auto Discovery</h2>
+    <p class="muted">Search configured sources for candidates associated with a registered brand.</p>
+    <button class="primary" onclick="runBackendScan()">Run Backend Discovery</button>
+    <button class="secondary" onclick="runSampleScan()">Run Sample Discovery</button>
+    <p id="discoveryResult" class="muted"></p>
+  </div>
+</section>
+
+<section class="section" id="social">
+  <div class="panel">
+    <h2>Social Media Monitor</h2>
+    <p class="muted">Review social-profile findings from the sample scan or configured backend.</p>
+    <button class="primary" onclick="showResults('Social')">Show Social Findings</button>
+    <div id="socialResults"></div>
+  </div>
+</section>
+
+<section class="section" id="apps">
+  <div class="panel">
+    <h2>App Store Monitor</h2>
+    <p class="muted">Review app names, identifiers, publisher details and available risk signals.</p>
+    <button class="primary" onclick="showResults('App')">Show App Findings</button>
+    <div id="appResults"></div>
+  </div>
+</section>
+
+<section class="section" id="cases">
+  <div class="panel">
+    <div class="row">
+      <div>
+        <h2>Investigation Center</h2>
+        <p class="muted">Review candidate signals and update case status.</p>
+      </div>
+      <button class="secondary" onclick="exportCases()">Export JSON</button>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Candidate</th>
+            <th>Source</th>
+            <th>Score</th>
+            <th>Evidence</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="caseRows"></tbody>
+      </table>
+    </div>
+    <div id="caseEmpty" class="empty">No cases yet. Run a scan.</div>
+  </div>
+</section>
+
+<section class="section" id="settings">
+  <div class="panel">
+    <h2>Backend Settings</h2>
+    <p class="muted">Enter your local FastAPI backend URL. Do not enter API keys here.</p>
+    <label for="backendUrl">Backend Base URL</label>
+    <input id="backendUrl" type="url" placeholder="http://127.0.0.1:8000">
+    <br><br>
+    <button class="primary" onclick="saveBackendSettings()">Save Backend URL</button>
+    <button class="secondary" onclick="refreshConnections()">Test Backend</button>
+    <p id="backendMessage" class="muted"></p>
+  </div>
+  <div class="panel">
+    <h2>Integration Requirements</h2>
+    <p class="muted">Instagram, Facebook, Threads, LinkedIn, X, TikTok, Reddit, Telegram, Pinterest and Snapchat require suitable authorized access and implemented connectors.</p>
+    <p class="muted">Google Play requires a suitable app-listing data source. Apple App Store can be queried through the public iTunes lookup API. YouTube and Bluesky require their respective connector implementations.</p>
+    <div class="notice">A Demo Mode label does not indicate a real platform connection. Platform access also depends on API permissions and availability.</div>
+  </div>
+</section>
+
+<footer>Kavach AIAI· Hackathon prototype · Human review required for suspicious findings.</footer>
+</main>
+</div>
+
+<script>
+const STORAGE_KEY = "Kavach-full-v1";
+const URL_KEY = "Kavach-backend-url-v1";
+
+let state = { brands: [], cases: [] };
+let connections = {};
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+  if (saved && Array.isArray(saved.brands) && Array.isArray(saved.cases)) {
+    state = saved;
+  }
+} catch (e) {}
+
+const $ = id => document.getElementById(id);
+
+const platforms = [
+  "Instagram", "Facebook", "YouTube", "Telegram", "Bluesky",
+  "Threads", "LinkedIn", "X (Twitter)", "TikTok", "Reddit",
+  "Pinterest", "Snapchat", "Google Play", "Apple App Store"
+];
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  renderAll();
+}
+
+function getBackendUrl() {
+  return ($("backendUrl").value || localStorage.getItem(URL_KEY) || "")
+    .trim().replace(/\/+$/, "");
+}
+
+function showPage(id) {
+  document.querySelectorAll(".section").forEach(section => {
+    section.classList.toggle("active", section.id === id);
+  });
+
+  document.querySelectorAll(".nav").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
+
+  const titles = {
+    overview:"Threat Overview",
+    brand:"Brand Profile",
+    discovery:"Auto Discovery",
+    social:"Social Media Monitor",
+    apps:"App Store Monitor",
+    cases:"Investigation Center",
+    settings:"API Settings"
+  };
+
+  $("pageTitle").textContent = titles[id] || "Kavach";
+}
+
+document.querySelectorAll(".nav").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+function renderSources() {
+  const grid = $("sourceGrid");
+  grid.replaceChildren();
+
+  platforms.forEach(name => {
+    const item = connections[name] || {};
+    const box = document.createElement("div");
+    box.className = "source";
+
+    const title = document.createElement("strong");
+    title.textContent = name;
+
+    const badge = document.createElement("span");
+    badge.className = "status";
+
+    const info = document.createElement("span");
+    info.className = "platform-label";
+
+    if (item.connected === true) {
+      badge.classList.add("connected");
+      badge.textContent = "API Verified";
+      info.textContent = "Backend confirmed configured";
+    } else {
+      badge.textContent = "Demo Connected";
+info.textContent = "Demo preview · Live API not connected";
+badge.classList.add("connected");
+    }
+
+    box.append(title, badge, info);
+    grid.appendChild(box);
+  });
+}
+
+async function refreshConnections() {
+  const base = getBackendUrl();
+
+  if (!base) {
+    $("backendMessage").textContent =
+      "Enter and save your backend URL first.";
+    renderSources();
+    return;
+  }
+
+  $("backendMessage").textContent = "Checking backend status...";
+
+  try {
+    const response = await fetch(base + "/api/integrations/status");
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    const data = await response.json();
+    const items = data.integrations || data;
+
+    platforms.forEach(name => {
+      const item = items[name] || items[name.toLowerCase()] || {};
+
+      connections[name] = {
+        connected: item.connected === true || item.status === "connected",
+        message: item.message || ""
+      };
+    });
+
+    $("backendMessage").textContent =
+      "Backend status received. Only confirmed integrations are marked API Verified.";
+  } catch (error) {
+    platforms.forEach(name => {
+      connections[name] = { connected:false };
+    });
+
+    $("backendMessage").textContent =
+      "Backend unavailable: " + error.message +
+      ". Platforms are shown in Demo Mode.";
+  }
+
+  renderSources();
+}
+
+function saveBackendSettings() {
+  const value = $("backendUrl").value.trim();
+
+  if (!value) {
+    localStorage.removeItem(URL_KEY);
+    $("backendMessage").textContent = "Backend URL cleared.";
+    platforms.forEach(name => connections[name] = {connected:false});
+    renderSources();
+    return;
+  }
+
+  try {
+    const url = new URL(value);
+
+    if (!["http:", "https:"].includes(url.protocol)) {
+      throw new Error("Use HTTP or HTTPS.");
+    }
+
+    localStorage.setItem(URL_KEY, url.href.replace(/\/+$/, ""));
+    $("backendMessage").textContent = "Backend URL saved.";
+    refreshConnections();
+  } catch (error) {
+    $("backendMessage").textContent = "Invalid URL. Example: http://127.0.0.1:8000";
+  }
+}
+
+$("brandForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const brand = {
+    id: String(Date.now()),
+    name: $("brandName").value.trim(),
+    website: $("brandWebsite").value.trim(),
+    social: $("socialAssets").value.split(/\r?\n/).map(x => x.trim()).filter(Boolean),
+    apps: $("appAssets").value.split(/\r?\n/).map(x => x.trim()).filter(Boolean),
+    publishers: $("publishers").value.split(/\r?\n/).map(x => x.trim()).filter(Boolean)
+  };
+
+  if (!brand.name) return;
+
+  state.brands.push(brand);
+  save();
+  $("brandMessage").textContent = "Brand profile saved successfully.";
+});
+
+function normalize(value) {
+  return String(value || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function similarity(a, b) {
+  a = normalize(a);
+  b = normalize(b);
+
+  if (!a || !b) return 0;
+  if (a === b) return 100;
+
+  let previous = Array.from({length:b.length + 1}, (_,i) => i);
+
+  for (let i = 1; i <= a.length; i++) {
+    const current = [i];
+
+    for (let j = 1; j <= b.length; j++) {
+      current[j] = Math.min(
+        current[j-1] + 1,
+        previous[j] + 1,
+        previous[j-1] + (a[i-1] === b[j-1] ? 0 : 1)
+      );
+    }
+
+    previous = current;
+  }
+
+  return Math.round((1 - previous[b.length] / Math.max(a.length,b.length)) * 100);
+}
+
+function assessCandidate(brand, candidate, type) {
+  const sim = similarity(brand.name, candidate.name);
+  const reasons = [];
+
+  if (sim >= 45) reasons.push("Name similarity indicator: " + sim + "%");
+
+  if (/support|help|official|wallet|secure|service/i.test(candidate.name)) {
+    reasons.push("Brand-related wording needs verification");
+  }
+
+  if (candidate.publisher && brand.publishers.length &&
+      !brand.publishers.some(p => p.toLowerCase() === candidate.publisher.toLowerCase())) {
+    reasons.push("Publisher differs from the registered publisher");
+  }
+
+  let score = sim >= 75 ? 65 : sim >= 50 ? 40 : sim >= 35 ? 20 : 5;
+
+  if (reasons.length >= 2) score = Math.min(95, score + 10);
+
+  return {
+    score,
+    priority: score >= 60 ? "Higher review priority" :
+              score >= 25 ? "Needs review" : "Lower signal",
+    reasons: reasons.length ? reasons : ["No strong warning signal found in this sample."]
+  };
+}
+
+function runSampleScan() {
+  if (!state.brands.length) {
+    $("scanMessage").textContent = "Register a brand first.";
+    showPage("brand");
+    return;
+  }
+
+  const brand = state.brands[state.brands.length - 1];
+
+  const candidates = [
+    {type:"Social", name:brand.name + " Customer Support", identity:"sample_support"},
+    {type:"Social", name:brand.name + " Help Desk", identity:"sample_help"},
+    {type:"Social", name:"Random Community Page", identity:"sample_community"},
+    {type:"App", name:brand.name + " Wallet Pro", identity:"demo.wallet", publisher:"Unknown Demo Publisher"},
+    {type:"App", name:brand.name + " Rewards", identity:"demo.rewards", publisher:"Sample Rewards Studio"},
+    {type:"App", name:"Simple Notes", identity:"demo.notes", publisher:"Example Software"}
+  ];
+
+  candidates.forEach(candidate => {
+    const result = assessCandidate(brand, candidate, candidate.type);
+
+    state.cases.unshift({
+      id:String(Date.now() + Math.random()),
+      brand:brand.name,
+      name:candidate.name,
+      type:candidate.type,
+      identity:candidate.identity,
+      publisher:candidate.publisher || "",
+      score:result.score,
+      priority:result.priority,
+      reasons:result.reasons,
+      status:"New",
+      source:"Sample dataset"
+    });
+  });
+
+  save();
+  $("scanMessage").textContent =
+    candidates.length + " fictional sample candidates assessed.";
+  $("discoveryResult").textContent =
+    "Sample scan complete. No platform was contacted.";
+}
+
+async function runBackendScan() {
+  const base = getBackendUrl();
+
+  if (!base) {
+    $("discoveryResult").textContent = "Set your backend URL in API Settings first.";
+    showPage("settings");
+    return;
+  }
+
+  if (!state.brands.length) {
+    $("discoveryResult").textContent = "Register a brand first.";
+    showPage("brand");
+    return;
+  }
+
+  $("discoveryResult").textContent = "Requesting backend scan...";
+
+  try {
+    const brand = state.brands[state.brands.length - 1];
+
+    const response = await fetch(base + "/api/scan", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        name:brand.name,
+        website:brand.website
+      })
+    });
+
+    if (!response.ok) throw new Error("HTTP " + response.status);
+
+    const data = await response.json();
+    const candidates = data.candidates || [];
+
+    candidates.forEach(candidate => {
+      const type = candidate.type === "App" ? "App" : "Social";
+      const result = assessCandidate(brand, candidate, type);
+
+      state.cases.unshift({
+        id:String(candidate.id || Date.now() + Math.random()),
+        brand:brand.name,
+        name:String(candidate.name || "Unknown candidate"),
+        type,
+        identity:String(candidate.identity || candidate.url || ""),
+        publisher:String(candidate.publisher || ""),
+        score:Number.isFinite(candidate.score) ? candidate.score : result.score,
+        priority:candidate.priority || result.priority,
+        reasons:Array.isArray(candidate.reasons) ? candidate.reasons : result.reasons,
+        status:"New",
+        source:"Backend API"
+      });
+    });
+
+    save();
+    $("discoveryResult").textContent =
+      "Backend returned " + candidates.length + " candidates.";
+  } catch (error) {
+    $("discoveryResult").textContent =
+      "Backend scan failed: " + error.message;
+  }
+}
+
+function showResults(type) {
+  const target = $(type === "Social" ? "socialResults" : "appResults");
+  target.replaceChildren();
+
+  const found = state.cases.filter(c => c.type === type);
+
+  if (!found.length) {
+    target.textContent = "No findings yet. Run a scan first.";
+    return;
+  }
+
+  found.forEach(candidate => {
+    const card = document.createElement("div");
+    card.className = "case-card";
+
+    const title = document.createElement("h3");
+    title.textContent = candidate.name;
+
+    const score = document.createElement("p");
+    score.className = "muted";
+    score.textContent = candidate.priority + " · Score " + candidate.score + "/100";
+
+    const reasons = document.createElement("ul");
+    (candidate.reasons || []).forEach(reason => {
+      const li = document.createElement("li");
+      li.textContent = reason;
+      reasons.appendChild(li);
+    });
+
+    const note = document.createElement("p");
+    note.className = "tiny";
+    note.textContent = "A review score is not proof of fraud.";
+
+    card.append(title, score, reasons, note);
+    target.appendChild(card);
+  });
+}
+
+function renderAll() {
+  $("brandCount").textContent = state.brands.length;
+  $("candidateCount").textContent = state.cases.length;
+  $("reviewCount").textContent =
+    state.cases.filter(c => !["Resolved","False Positive"].includes(c.status)).length;
+  $("resolvedCount").textContent =
+    state.cases.filter(c => c.status === "Resolved").length;
+
+  const brandList = $("brandList");
+  brandList.replaceChildren();
+
+  if (!state.brands.length) {
+    brandList.textContent = "No brand registered yet.";
+    brandList.className = "empty";
+  } else {
+    brandList.className = "";
+
+    state.brands.forEach(brand => {
+      const card = document.createElement("div");
+      card.className = "case-card";
+
+      const title = document.createElement("strong");
+      title.textContent = brand.name;
+
+      const details = document.createElement("p");
+      details.className = "muted";
+      details.textContent =
+        brand.social.length + " social entries · " +
+        brand.apps.length + " app entries · " +
+        brand.publishers.length + " publisher entries";
+
+      card.append(title, details);
+      brandList.appendChild(card);
+    });
+  }
+
+  const social = state.cases.filter(c => c.type === "Social").length;
+  const apps = state.cases.filter(c => c.type === "App").length;
+  const high = state.cases.filter(c => c.score >= 60).length;
+  const max = Math.max(1, social, apps, high);
+
+  $("socialTotal").textContent = social;
+  $("appTotal").textContent = apps;
+  $("highTotal").textContent = high;
+  $("socialBar").style.width = (social / max * 100) + "%";
+  $("appBar").style.width = (apps / max * 100) + "%";
+  $("highBar").style.width = (high / max * 100) + "%";
+
+  const tbody = $("caseRows");
+  tbody.replaceChildren();
+
+  state.cases.forEach(candidate => {
+    const row = document.createElement("tr");
+
+    [
+      candidate.name,
+      candidate.source,
+      candidate.score + "/100",
+      (candidate.reasons || []).join("; ")
+    ].forEach((value, index) => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+
+      if (index === 2) {
+        const badge = document.createElement("span");
+        badge.className = "badge " +
+          (candidate.score >= 60 ? "high" :
+           candidate.score >= 25 ? "medium" : "low");
+        badge.textContent = value;
+        cell.replaceChildren(badge);
+      }
+
+      row.appendChild(cell);
+    });
+
+    const statusCell = document.createElement("td");
+    const select = document.createElement("select");
+
+    ["New","Investigating","Resolved","False Positive"].forEach(status => {
+      const option = document.createElement("option");
+      option.value = status;
+      option.textContent = status;
+      select.appendChild(option);
+    });
+
+    select.value = candidate.status;
+    select.addEventListener("change", () => {
+      candidate.status = select.value;
+      save();
+    });
+
+    statusCell.appendChild(select);
+    row.appendChild(statusCell);
+    tbody.appendChild(row);
+  });
+
+  $("caseEmpty").style.display = state.cases.length ? "none" : "block";
+
+  const recent = $("recentCases");
+  recent.replaceChildren();
+
+  if (!state.cases.length) {
+    recent.textContent = "No cases yet. Register a brand and run a scan.";
+    recent.className = "empty";
+  } else {
+    recent.className = "";
+
+    state.cases.slice(0,5).forEach(candidate => {
+      const p = document.createElement("p");
+      p.textContent = candidate.type + ": " + candidate.name +
+        " — " + candidate.priority + " · " + candidate.source;
+      recent.appendChild(p);
+    });
+  }
+}
+
+function exportCases() {
+  const report = {
+    report:"Kavach AIAIInvestigation Report",
+    generatedAt:new Date().toISOString(),
+    note:"Review evidence before making decisions. Sample findings are illustrative.",
+    brands:state.brands,
+    cases:state.cases
+  };
+
+  const blob = new Blob([JSON.stringify(report, null, 2)], {
+    type:"application/json"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "Kavach-report.json";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+const savedUrl = localStorage.getItem(URL_KEY);
+if (savedUrl) $("backendUrl").value = savedUrl;
+
+platforms.forEach(name => connections[name] = {connected:false});
+renderSources();
+renderAll();
+</script>
+</body>
+</html>
+```
